@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { RegisterUserService } from "../../application/service/register-user.service";
+import { RegisterUserService } from "../../application/services/register-user.service";
 import { RegisterUserDto } from "./dtos/register-user.dto";
 import { ResponseUserDto } from "./dtos/response-user.dto";
 

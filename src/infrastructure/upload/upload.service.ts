@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { extname } from "node:path";
-import { ImageUploadErrorException } from "../../shared/exceptions/image-upload-error.exception";
+import { BadRequestException } from "../../shared/exceptions/bad-request.exception";
 import { SupabaseService } from "./supabase/supabase.service";
 import { UploadRepository } from "./upload.repository";
 
@@ -23,7 +23,7 @@ export class UploadService implements UploadRepository {
       cacheControl: "3600",
     });
     if (error) {
-      throw new ImageUploadErrorException();
+      throw new BadRequestException("Não foi possível processar o envio da imagem.");
     }
 
     return path;

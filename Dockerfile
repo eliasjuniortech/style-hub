@@ -7,7 +7,7 @@ RUN npm ci
 
 COPY ./ /app/
 
-# RUN npx prisma generate
+RUN npx prisma generate
 RUN npm run build
 
 EXPOSE 3000

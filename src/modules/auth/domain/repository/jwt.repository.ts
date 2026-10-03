@@ -1,0 +1,6 @@
+import { Payload } from "../../application/services/types/payload.type";
+
+export abstract class JwtRepository {
+  abstract generateAccessToken(payload: Payload): Promise<string>;
+  abstract generateRefreshToken(payload: Payload): Promise<string>;
+}

@@ -4,7 +4,7 @@ import { User } from "../../../domain/entities/user.entity";
 import { UserRepository } from "../../../domain/repository/user.repository";
 
 @Injectable()
-export class UserPersistence implements UserRepository {
+export class UserRepositoryAdapter implements UserRepository {
   private readonly prismaService: PrismaService;
 
   constructor(prismaService: PrismaService) {
