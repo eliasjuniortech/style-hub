@@ -3,8 +3,10 @@ import { ConfigService } from "@nestjs/config";
 import type { Response } from "express";
 import { LoginService } from "../../application/services/login.service";
 import { JwtRepository } from "../../domain/repository/jwt.repository";
+import { CurrentUser } from "../out/decorators/current-user.decorator";
 import { AccessTokenGuard } from "../out/guards/access-token.guard";
 import { RefreshTokenGuard } from "../out/guards/refresh-token.guard";
+import type { AuthenticatedUser } from "../out/types/authenticated-user.type";
 import { LoginDto } from "./dtos/login.dto";
 
 @Controller()
@@ -50,8 +52,8 @@ export class AuthController {
 
   @Post("refresh-token")
   @UseGuards(RefreshTokenGuard)
-  async refreshToken(@Res({ passthrough: true }) res: Response): Promise<void> {
-    const accessToken = await this.jwtRepository.generateAccessToken({ sub: "", email: "" });
+  async refreshToken(@Res({ passthrough: true }) res: Response, @CurrentUser() currentUser: AuthenticatedUser): Promise<void> {
+    const accessToken = await this.jwtRepository.generateAccessToken({ sub: currentUser.sub, email: currentUser.email });
 
     res.cookie("access_token", accessToken, {
       httpOnly: true,

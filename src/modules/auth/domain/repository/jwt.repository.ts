@@ -1,4 +1,4 @@
-import { Payload } from "../../application/services/types/payload.type";
+import { Payload } from "../../adapters/out/types/payload.type";
 
 export abstract class JwtRepository {
   abstract generateAccessToken(payload: Payload): Promise<string>;

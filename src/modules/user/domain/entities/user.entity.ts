@@ -1,15 +1,17 @@
 export class User {
   private readonly id: string;
-  private readonly username: string;
+  private readonly firstName: string;
+  private readonly lastName: string;
   private readonly email: string;
   private readonly password: string;
   private readonly avatar: string | null;
   private readonly createdAt: Date;
   private readonly updatedAt: Date;
 
-  constructor(id: string, username: string, email: string, password: string, avatar: string | null, createdAt: Date, updatedAt: Date) {
+  constructor(id: string, firstName: string, lastName: string, email: string, password: string, avatar: string | null, createdAt: Date, updatedAt: Date) {
     this.id = id;
-    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.avatar = avatar;
@@ -17,15 +19,18 @@ export class User {
     this.updatedAt = updatedAt;
   }
 
-  static create(id: string, username: string, email: string, password: string, avatar: string | null, createdAt: Date, updatedAt: Date): User {
-    return new User(id, username, email, password, avatar, createdAt, updatedAt);
+  static create(id: string, firstName: string, lastName: string, email: string, password: string, path: string | null, createdAt: Date, updatedAt: Date): User {
+    return new User(id, firstName, lastName, email, password, path, createdAt, updatedAt);
   }
 
   getId(): string {
     return this.id;
   }
-  getUsername(): string {
-    return this.username;
+  getFirstName(): string {
+    return this.firstName;
+  }
+  getLastName(): string {
+    return this.lastName;
   }
   getEmail(): string {
     return this.email;

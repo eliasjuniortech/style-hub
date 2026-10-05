@@ -16,6 +16,6 @@ export class AuthRepositoryAdapter implements AuthRepository {
     if (!user) {
       return null;
     }
-    return User.create(user.id, user.username, user.email, user.password, user.avatar, user.createdAt, user.updatedAt);
+    return User.create(user.id, user.firstName, user.lastName, user.email, user.password, user.avatar, user.createdAt, user.updatedAt);
   }
 }

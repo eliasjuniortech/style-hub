@@ -1,6 +1,5 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { extname } from "node:path";
-import { BadRequestException } from "../../shared/exceptions/bad-request.exception";
 import { SupabaseService } from "./supabase/supabase.service";
 import { UploadRepository } from "./upload.repository";
 
@@ -16,16 +15,26 @@ export class UploadService implements UploadRepository {
     const client = this.supabase.getClient();
 
     const extension = extname(file.originalname);
-    const path = `${id}/avatar${extension}`;
+    const path = `${id}/${crypto.randomUUID()}${extension}`;
 
     const { error } = await client.storage.from("avatars").upload(path, file.buffer, {
       contentType: file.mimetype,
       cacheControl: "3600",
+      upsert: true,
     });
     if (error) {
       throw new BadRequestException("Não foi possível processar o envio da imagem.");
     }
 
     return path;
+  }
+
+  async remove(path: string): Promise<void> {
+    const client = this.supabase.getClient();
+
+    const { error } = await client.storage.from("avatars").remove([path]);
+    if (error) {
+      throw new BadRequestException("Não foi possível processar o envio da imagem.");
+    }
   }
 }

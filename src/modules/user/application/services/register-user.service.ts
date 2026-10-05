@@ -28,7 +28,7 @@ export class RegisterUserService {
     const hash = await this.hashingRepository.hash(input.password);
     const avatar = file ? await this.uploadRepository.save(id, file) : null;
 
-    const user = User.create(id, input.username, input.email, hash, avatar, new Date(), new Date());
+    const user = User.create(id, input.firstName, input.lastName, input.email, hash, avatar, new Date(), new Date());
     await this.userRepository.save(user);
 
     return user;
