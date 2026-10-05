@@ -13,7 +13,7 @@ import { JwtRepository } from "./domain/repository/jwt.repository";
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: "access_token" }),
+    PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

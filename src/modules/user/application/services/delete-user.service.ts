@@ -19,7 +19,7 @@ export class DeleteUserService {
       throw new UserNotFoundException();
     }
 
-    const path = user.getAvatar() ? user.getAvatar() : null;
+    const path = user.getAvatar();
     if (path) {
       await this.uploadRepository.remove(path);
     }

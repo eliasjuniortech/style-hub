@@ -7,6 +7,7 @@ import { DeleteUserService } from "./application/services/delete-user.service";
 import { FindUserService } from "./application/services/find-user.service";
 import { RegisterUserService } from "./application/services/register-user.service";
 import { UpdateUserAvatarService } from "./application/services/update-user-avatar.service";
+import { UpdateUserService } from "./application/services/update-user.service";
 import { UserRepository } from "./domain/repository/user.repository";
 
 @Module({
@@ -14,9 +15,10 @@ import { UserRepository } from "./domain/repository/user.repository";
   providers: [
     RegisterUserService,
     FindUserService,
+    UpdateUserService,
+    UpdateUserAvatarService,
     DeleteUserService,
     DeleteUserAvatarService,
-    UpdateUserAvatarService,
     {
       provide: UserRepository,
       useClass: UserRepositoryAdapter,

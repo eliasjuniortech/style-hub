@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { HashingRepository } from "../../../../infrastructure/security/hashing/hashing.repository";
 import { InvalidCredentialsException } from "../../../../shared/exceptions/invalid-credentials.exception";
-import { LoginDto } from "../../adapters/in/dtos/login.dto";
+import { LoginInput } from "../../adapters/out/types/login-input.type";
 import { AuthRepository } from "../../domain/repository/auth.repository";
 import { JwtRepository } from "../../domain/repository/jwt.repository";
 
@@ -17,7 +17,7 @@ export class LoginService {
     this.jwtRepository = jwtRepository;
   }
 
-  async execute(input: LoginDto): Promise<{ accessToken: string; refreshToken: string }> {
+  async execute(input: LoginInput): Promise<{ accessToken: string; refreshToken: string }> {
     const user = await this.authRepository.findUserByEmail(input.email);
     if (!user) {
       throw new InvalidCredentialsException();
@@ -31,6 +31,6 @@ export class LoginService {
     const accessToken = await this.jwtRepository.generateAccessToken({ sub: user.getId(), email: user.getEmail() });
     const refreshToken = await this.jwtRepository.generateRefreshToken({ sub: user.getId(), email: user.getEmail() });
 
-    return { accessToken: accessToken, refreshToken: refreshToken };
+    return { accessToken, refreshToken };
   }
 }

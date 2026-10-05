@@ -24,10 +24,7 @@ export class RegisterUserDto {
 
   @IsString({ message: "A senha deve ser um texto válido." })
   @IsNotEmpty({ message: "A senha é obrigatória." })
-  @IsStrongPassword(
-    { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 },
-    { message: "A senha não é forte o suficiente." },
-  )
+  @IsStrongPassword({ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 }, { message: "A senha não é forte o suficiente." })
   @Matches(/^[a-zA-Z0-9!@.$]+$/, { message: "A senha contém caracteres não permitidos." })
   @MaxLength(64, { message: "A senha deve conter no máximo 64 caracteres." })
   password: string;

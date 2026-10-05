@@ -22,7 +22,7 @@ export class AuthController {
   }
 
   @Post("login")
-  async login(@Body() data: LoginDto, @Res({ passthrough: true }) res: Response): Promise<{ message: string }> {
+  public async login(@Body() data: LoginDto, @Res({ passthrough: true }) res: Response): Promise<{ message: string }> {
     const { accessToken, refreshToken } = await this.loginService.execute(data);
 
     res.cookie("access_token", accessToken, {
@@ -43,7 +43,7 @@ export class AuthController {
 
   @Post("logout")
   @UseGuards(AccessTokenGuard)
-  async logout(@Res({ passthrough: true }) res: Response): Promise<{ message: string }> {
+  public async logout(@Res({ passthrough: true }) res: Response): Promise<{ message: string }> {
     res.clearCookie("access_token");
     res.clearCookie("refresh_token");
 
@@ -52,8 +52,8 @@ export class AuthController {
 
   @Post("refresh-token")
   @UseGuards(RefreshTokenGuard)
-  async refreshToken(@Res({ passthrough: true }) res: Response, @CurrentUser() currentUser: AuthenticatedUser): Promise<void> {
-    const accessToken = await this.jwtRepository.generateAccessToken({ sub: currentUser.sub, email: currentUser.email });
+  public async refreshToken(@Res({ passthrough: true }) res: Response, @CurrentUser() currentUser: AuthenticatedUser): Promise<void> {
+    const accessToken = await this.jwtRepository.generateAccessToken(currentUser);
 
     res.cookie("access_token", accessToken, {
       httpOnly: true,

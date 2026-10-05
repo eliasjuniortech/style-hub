@@ -1,5 +1,6 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { extname } from "node:path";
+import { FileStorageException } from "../../shared/exceptions/file-storage.exception";
 import { SupabaseService } from "./supabase/supabase.service";
 import { UploadRepository } from "./upload.repository";
 
@@ -22,10 +23,10 @@ export class UploadService implements UploadRepository {
       cacheControl: "3600",
       upsert: true,
     });
-    if (error) {
-      throw new BadRequestException("Não foi possível processar o envio da imagem.");
-    }
 
+    if (error) {
+      throw new FileStorageException();
+    }
     return path;
   }
 
@@ -34,7 +35,7 @@ export class UploadService implements UploadRepository {
 
     const { error } = await client.storage.from("avatars").remove([path]);
     if (error) {
-      throw new BadRequestException("Não foi possível processar o envio da imagem.");
+      throw new FileStorageException();
     }
   }
 }

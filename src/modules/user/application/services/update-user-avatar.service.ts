@@ -26,6 +26,6 @@ export class UpdateUserAvatarService {
     }
     const path = await this.uploadRepository.save(userExists.getId(), file);
 
-    return await this.userRepository.update(userExists.getId(), { avatar: path });
+    return await this.userRepository.updateAvatar(userExists.getId(), path);
   }
 }

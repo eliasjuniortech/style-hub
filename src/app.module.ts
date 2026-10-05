@@ -26,12 +26,10 @@ import { UserModule } from "./modules/user/user.module";
         forbidNonWhitelisted: true,
 
         exceptionFactory: (errors) => {
-          const formattedErrors = errors.map((error) => {
-            return {
-              field: error.property,
-              message: Object.values(error.constraints ?? {}),
-            };
-          });
+          const formattedErrors = errors.map((error) => ({
+            field: error.property,
+            message: Object.values(error.constraints ?? {}),
+          }));
 
           return new BadRequestException({
             status: HttpStatus.BAD_REQUEST,

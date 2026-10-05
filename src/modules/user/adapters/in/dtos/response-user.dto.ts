@@ -1,11 +1,11 @@
 export class ResponseUserDto {
-  readonly id: string;
-  readonly firstName: string;
-  readonly lastName: string;
-  readonly email: string;
-  readonly avatar: string | null;
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
+  private readonly id: string;
+  private readonly firstName: string;
+  private readonly lastName: string;
+  private readonly email: string;
+  private readonly avatar: string | null;
+  private readonly createdAt: Date;
+  private readonly updatedAt: Date;
 
   constructor(id: string, firstName: string, lastName: string, email: string, avatar: string | null, createdAt: Date, updatedAt: Date) {
     this.id = id;
